@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentech — Soluções Tecnológicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --val-dark: #0B1E3D;
+      --val-mid: #0F2A52;
+      --val-purple: #7B2FBE;
+      --val-purple-light: #9B4FDE;
+      --val-cyan: #00C9D4;
+      --val-cyan-dark: #007c82;
+      --val-indigo: #5C6BC0;
+      --white: #ffffff;
+      --text-muted: rgba(255,255,255,0.65);
+      --text-faint: rgba(255,255,255,0.4);
+      --border-light: rgba(0,201,212,0.15);
+      --border-purple: rgba(123,47,190,0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: #f4f6f9;
+      color: #1a1a2e;
+      line-height: 1.7;
+    }
+
+    /* ── CONTACT BAR ── */
+    .contact-bar {
+      background: #060f1e;
+      padding: 7px 40px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .contact-bar span {
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .contact-bar i { font-size: 13px; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--val-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--val-purple);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .logo-dot::after {
+      content: '';
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--val-cyan);
+      top: -4px;
+      right: -4px;
+    }
+    .logo-text {
+      color: var(--white);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--val-cyan); }
+    .nav-cta {
+      background: var(--val-purple);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-family: 'Sora', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--val-purple-light); }
+    .nav-hamburger { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--val-dark);
+      padding: 80px 40px 88px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: rgba(123,47,190,0.07);
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(123,47,190,0.18);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      padding: 5px 16px;
+      margin-bottom: 28px;
+    }
+    .hero-badge span {
+      color: var(--val-cyan);
+      font-size: 12px;
+    }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 em {
+      color: var(--val-cyan);
+      font-style: normal;
+    }
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--val-purple);
+      color: var(--white);
+      border: none;
+      border-radius: 9px;
+      padding: 13px 30px;
+      font-size: 14px;
+      font-family: 'Sora', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: var(--val-purple-light); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--val-cyan);
+      border: 1px solid rgba(0,201,212,0.45);
+      border-radius: 9px;
+      padding: 13px 30px;
+      font-size: 14px;
+      font-family: 'Sora', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .btn-outline:hover { background: rgba(0,201,212,0.08); }
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      margin-top: 56px;
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      color: var(--white);
+      font-size: 26px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .stat-num span { color: var(--val-cyan); }
+    .stat-label {
+      color: var(--text-faint);
+      font-size: 12px;
+      text-align: center;
+      margin-top: 3px;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 72px 40px; }
+    section.alt { background: #eef0f5; }
+    section.dark-section { background: var(--val-dark); }
+    .section-title { text-align: center; margin-bottom: 40px; }
+    .section-title h2 { font-size: 26px; font-weight: 600; color: #0B1E3D; }
+    .section-title p { font-size: 14px; color: #666; margin-top: 7px; }
+    .section-title .accent { color: var(--val-purple); }
+    .dark-section .section-title h2 { color: #fff; }
+    .dark-section .section-title p { color: rgba(255,255,255,0.55); }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid #e2e6ee;
+      border-radius: 14px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .s1::before { background: var(--val-purple); }
+    .s2::before { background: var(--val-cyan); }
+    .s3::before { background: var(--val-indigo); }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+    .s1 .service-icon { background: rgba(123,47,190,0.1); color: var(--val-purple); }
+    .s2 .service-icon { background: rgba(0,201,212,0.1); color: var(--val-cyan-dark); }
+    .s3 .service-icon { background: rgba(92,107,192,0.1); color: var(--val-indigo); }
+    .service-card h3 { font-size: 15px; font-weight: 600; color: #0B1E3D; margin-bottom: 9px; }
+    .service-card p { font-size: 13px; color: #555; line-height: 1.65; }
+    .service-list { margin-top: 14px; list-style: none; }
+    .service-list li {
+      font-size: 12px;
+      color: #666;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .service-list li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--val-cyan);
+      flex-shrink: 0;
+    }
+
+    /* ── WHY ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .why-item {
+      background: #fff;
+      border: 1px solid #e2e6ee;
+      border-radius: 10px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: border-color 0.2s;
+    }
+    .why-item:hover { border-color: var(--val-purple); }
+    .why-icon { font-size: 22px; color: var(--val-purple); flex-shrink: 0; margin-top: 2px; }
+    .why-item h4 { font-size: 14px; font-weight: 600; color: #0B1E3D; margin-bottom: 5px; }
+    .why-item p { font-size: 12px; color: #666; line-height: 1.55; }
+
+    /* ── FORM ── */
+    .form-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #e2e6ee;
+      border-radius: 16px;
+      padding: 36px;
+    }
+    .form-header { text-align: center; margin-bottom: 26px; }
+    .form-header h3 { font-size: 20px; font-weight: 600; color: #0B1E3D; }
+    .form-header p { font-size: 13px; color: #666; margin-top: 7px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 12px; color: #555; margin-bottom: 6px; font-weight: 500; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1px solid #dde1ea;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Sora', sans-serif;
+      color: #1a1a2e;
+      background: #fafbfc;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--val-purple); background: #fff; }
+    .form-group textarea { height: 90px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-submit {
+      width: 100%;
+      background: var(--val-purple);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 14px;
+      font-size: 14px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--val-purple-light); }
+    .form-note { text-align: center; font-size: 12px; color: #999; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060f1e;
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 9px; }
+    .footer-logo-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--val-purple); }
+    .footer-logo span { color: #fff; font-size: 16px; font-weight: 600; }
+    .footer-copy { color: var(--text-faint); font-size: 12px; }
+    .admin-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.55);
+      border-radius: 7px;
+      padding: 7px 15px;
+      font-size: 12px;
+      font-family: 'Sora', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .admin-btn:hover { background: rgba(255,255,255,0.13); color: #fff; }
+
+    /* ── ADMIN PANEL ── */
+    .admin-panel {
+      background: #f0f2f8;
+      border-top: 3px solid var(--val-purple);
+      padding: 36px 40px;
+      display: none;
+    }
+    .admin-panel.open { display: block; }
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .admin-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0B1E3D;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .admin-header h2 i { color: var(--val-purple); font-size: 20px; }
+    .admin-badge {
+      background: rgba(123,47,190,0.1);
+      color: var(--val-purple);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 11px;
+      border-radius: 20px;
+    }
+    .admin-close {
+      background: none;
+      border: 1px solid #c8ccd8;
+      border-radius: 7px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-family: 'Sora', sans-serif;
+      color: #666;
+      cursor: pointer;
+    }
+    .admin-close:hover { border-color: #999; color: #333; }
+    .admin-tabs { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+    .tab-btn {
+      background: none;
+      border: 1px solid #d0d4de;
+      border-radius: 7px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-family: 'Sora', sans-serif;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--val-purple); border-color: var(--val-purple); color: #fff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .admin-field { display: flex; flex-direction: column; gap: 5px; }
+    .admin-field label { font-size: 12px; color: #555; font-weight: 500; }
+    .admin-field input,
+    .admin-field textarea {
+      padding: 9px 12px;
+      border: 1px solid #d0d4de;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Sora', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      outline: none;
+    }
+    .admin-field input:focus,
+    .admin-field textarea:focus { border-color: var(--val-purple); }
+    .admin-field textarea { height: 72px; resize: vertical; }
+    .admin-save {
+      background: var(--val-purple);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 11px 26px;
+      font-size: 13px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: background 0.2s;
+    }
+    .admin-save:hover { background: var(--val-purple-light); }
+    .save-feedback {
+      font-size: 12px;
+      color: #1D9E75;
+      margin-top: 9px;
+      display: none;
+      font-weight: 500;
+    }
+    .save-feedback.show { display: block; }
+    .full-col { grid-column: 1 / -1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+      .hero { padding: 56px 20px 64px; }
+      section { padding: 52px 20px; }
+      footer { padding: 22px 20px; flex-direction: column; align-items: flex-start; }
+      .admin-panel { padding: 28px 20px; }
+      .contact-bar { padding: 7px 20px; gap: 12px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-wrap { padding: 24px 18px; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CONTACT BAR -->
+  <div class="contact-bar" id="contact-bar">
+    <span><i class="ti ti-phone"></i><span id="bar-phone">(24) 99999-0000</span></span>
+    <span><i class="ti ti-mail"></i><span id="bar-email">contato@valentech.com.br</span></span>
+    <span><i class="ti ti-brand-whatsapp"></i><span id="bar-whatsapp">(24) 99999-0000</span></span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="logo-dot"></div>
+      <span class="logo-text" id="nav-brand">Valentech</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#diferenciais">Sobre</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">Solicitar orçamento</button>
+    <button class="nav-hamburger" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i class="ti ti-shield-check" style="color:var(--val-cyan);font-size:13px"></i>
+      <span id="hero-badge-text">Soluções tecnológicas completas para o seu negócio</span>
+    </div>
+    <h1 id="hero-title">Tecnologia que <em>impulsiona</em> seus resultados</h1>
+    <p class="hero-sub" id="hero-sub">Suporte técnico especializado, gestão de tráfego pago e landing pages de alta conversão — tudo em um só lugar.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-send" style="font-size:15px"></i>
+        <span id="btn-cta">Falar com especialista</span>
+      </button>
+      <button class="btn-outline" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-eye" style="font-size:15px"></i>
+        Ver serviços
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">+<span id="stat1">150</span></div>
+        <div class="stat-label" id="stat1-label">Clientes atendidos</div>
+      </div>
+      <div>
+        <div class="stat-num"><span id="stat2">5</span>+</div>
+        <div class="stat-label" id="stat2-label">Anos de experiência</div>
+      </div>
+      <div>
+        <div class="stat-num"><span id="stat3">98</span>%</div>
+        <div class="stat-label" id="stat3-label">Satisfação dos clientes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="servicos" style="background:#fff;">
+    <div class="section-title">
+      <h2>Nossos <span class="accent">serviços</span></h2>
+      <p>Soluções integradas para transformar o desempenho da sua empresa</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card s1">
+        <div class="service-icon"><i class="ti ti-device-desktop"></i></div>
+        <h3>Suporte Técnico em Informática</h3>
+        <p>Manutenção preventiva e corretiva, formatação, instalação de sistemas e redes.</p>
+        <ul class="service-list">
+          <li>Manutenção de hardware e software</li>
+          <li>Configuração de redes</li>
+          <li>Formatação e backup</li>
+          <li>Suporte remoto e presencial</li>
+        </ul>
+      </div>
+      <div class="service-card s2">
+        <div class="service-icon"><i class="ti ti-chart-line"></i></div>
+        <h3>Gestão de Tráfego Pago</h3>
+        <p>Campanhas estratégicas no Google Ads e Meta Ads com foco em ROI e resultados mensuráveis.</p>
+        <ul class="service-list">
+          <li>Google Ads e Meta Ads</li>
+          <li>Análise de métricas e KPIs</li>
+          <li>Segmentação avançada</li>
+          <li>Otimização contínua</li>
+        </ul>
+      </div>
+      <div class="service-card s3">
+        <div class="service-icon"><i class="ti ti-layout"></i></div>
+        <h3>Landing Pages de Alta Conversão</h3>
+        <p>Páginas otimizadas para capturar leads e converter visitantes em clientes reais.</p>
+        <ul class="service-list">
+          <li>Design responsivo e moderno</li>
+          <li>Otimização para SEO</li>
+          <li>Integração com ferramentas</li>
+          <li>Testes A/B</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="alt" id="diferenciais">
+    <div class="section-title">
+      <h2>Por que escolher a <span class="accent">Valentech?</span></h2>
+      <p>Comprometimento, expertise e resultados comprovados</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <i class="ti ti-bolt why-icon"></i>
+        <div><h4>Atendimento ágil</h4><p>Resposta rápida e suporte eficiente para não deixar seu negócio parar.</p></div>
+      </div>
+      <div class="why-item">
+        <i class="ti ti-certificate why-icon"></i>
+        <div><h4>Experiência comprovada</h4><p>Anos de atuação com clientes satisfeitos em diversas áreas.</p></div>
+      </div>
+      <div class="why-item">
+        <i class="ti ti-target why-icon"></i>
+        <div><h4>Foco em resultados</h4><p>Estratégias orientadas a dados para maximizar o retorno do investimento.</p></div>
+      </div>
+      <div class="why-item">
+        <i class="ti ti-users why-icon"></i>
+        <div><h4>Atendimento personalizado</h4><p>Cada projeto é único — soluções sob medida para cada cliente.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section id="contato" style="background:#fff;">
+    <div class="section-title">
+      <h2>Entre em <span class="accent">contato</span></h2>
+      <p>Solicite um orçamento gratuito e sem compromisso</p>
+    </div>
+    <div class="form-wrap">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" placeholder="Seu nome" />
+        </div>
+        <div class="form-group">
+          <label>WhatsApp</label>
+          <input type="text" placeholder="(00) 00000-0000" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" placeholder="seu@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Serviço de interesse</label>
+        <select>
+          <option value="">Selecione um serviço</option>
+          <option>Suporte técnico em informática</option>
+          <option>Gestão de tráfego pago</option>
+          <option>Landing page</option>
+          <option>Pacote completo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensagem (opcional)</label>
+        <textarea placeholder="Conte um pouco sobre o seu negócio e necessidade..."></textarea>
+      </div>
+      <button class="form-submit" id="form-submit-btn">
+        <i class="ti ti-send" style="font-size:15px"></i>
+        Enviar solicitação
+      </button>
+      <p class="form-note">
+        <i class="ti ti-lock" style="font-size:13px"></i>
+        Seus dados estão seguros. Não enviamos spam.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <div class="footer-logo-dot"></div>
+      <span id="footer-brand">Valentech</span>
+    </div>
+    <p class="footer-copy" id="footer-copy">© 2025 Valentech. Todos os direitos reservados.</p>
+    <button class="admin-btn" id="admin-toggle">
+      <i class="ti ti-settings" style="font-size:15px"></i>
+      Área administrativa
+    </button>
+  </footer>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-panel" id="admin-panel">
+    <div class="admin-header">
+      <h2>
+        <i class="ti ti-settings"></i>
+        Painel administrativo
+        <span class="admin-badge">Valentech</span>
+      </h2>
+      <button class="admin-close" id="admin-close">Fechar painel</button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="tab-btn active" data-tab="contatos">Informações de contato</button>
+      <button class="tab-btn" data-tab="hero">Hero / Cabeçalho</button>
+      <button class="tab-btn" data-tab="stats">Estatísticas</button>
+      <button class="tab-btn" data-tab="rodape">Rodapé</button>
+    </div>
+
+    <!-- TAB: CONTATOS -->
+    <div class="tab-content active" id="tab-contatos">
+      <div class="admin-grid">
+        <div class="admin-field">
+          <label>Telefone (barra superior)</label>
+          <input type="text" id="inp-phone" value="(24) 99999-0000" />
+        </div>
+        <div class="admin-field">
+          <label>WhatsApp (barra superior)</label>
+          <input type="text" id="inp-whatsapp" value="(24) 99999-0000" />
+        </div>
+        <div class="admin-field">
+          <label>E-mail de contato</label>
+          <input type="text" id="inp-email" value="contato@valentech.com.br" />
+        </div>
+        <div class="admin-field">
+          <label>Link do botão WhatsApp (formulário)</label>
+          <input type="text" id="inp-wa-link" placeholder="https://wa.me/5524..." />
+        </div>
+      </div>
+      <button class="admin-save" onclick="saveContatos()">
+        <i class="ti ti-check" style="font-size:16px"></i>Salvar contatos
+      </button>
+      <p class="save-feedback" id="fb-contatos">✓ Informações de contato atualizadas!</p>
+    </div>
+
+    <!-- TAB: HERO -->
+    <div class="tab-content" id="tab-hero">
+      <div class="admin-grid">
+        <div class="admin-field">
+          <label>Texto do badge (destaque no topo)</label>
+          <input type="text" id="inp-badge" value="Soluções tecnológicas completas para o seu negócio" />
+        </div>
+        <div class="admin-field">
+          <label>Título principal</label>
+          <input type="text" id="inp-title" value="Tecnologia que impulsiona seus resultados" />
+        </div>
+        <div class="admin-field full-col">
+          <label>Subtítulo</label>
+          <textarea id="inp-sub">Suporte técnico especializado, gestão de tráfego pago e landing pages de alta conversão — tudo em um só lugar.</textarea>
+        </div>
+        <div class="admin-field">
+          <label>Texto do botão CTA principal</label>
+          <input type="text" id="inp-cta" value="Falar com especialista" />
+        </div>
+      </div>
+      <button class="admin-save" onclick="saveHero()">
+        <i class="ti ti-check" style="font-size:16px"></i>Salvar hero
+      </button>
+      <p class="save-feedback" id="fb-hero">✓ Textos do hero atualizados!</p>
+    </div>
+
+    <!-- TAB: STATS -->
+    <div class="tab-content" id="tab-stats">
+      <div class="admin-grid">
+        <div class="admin-field">
+          <label>Estatística 1 — número</label>
+          <input type="text" id="inp-s1" value="150" />
+        </div>
+        <div class="admin-field">
+          <label>Estatística 1 — legenda</label>
+          <input type="text" id="inp-s1l" value="Clientes atendidos" />
+        </div>
+        <div class="admin-field">
+          <label>Estatística 2 — número</label>
+          <input type="text" id="inp-s2" value="5" />
+        </div>
+        <div class="admin-field">
+          <label>Estatística 2 — legenda</label>
+          <input type="text" id="inp-s2l" value="Anos de experiência" />
+        </div>
+        <div class="admin-field">
+          <label>Estatística 3 — número</label>
+          <input type="text" id="inp-s3" value="98" />
+        </div>
+        <div class="admin-field">
+          <label>Estatística 3 — legenda</label>
+          <input type="text" id="inp-s3l" value="Satisfação dos clientes" />
+        </div>
+      </div>
+      <button class="admin-save" onclick="saveStats()">
+        <i class="ti ti-check" style="font-size:16px"></i>Salvar estatísticas
+      </button>
+      <p class="save-feedback" id="fb-stats">✓ Estatísticas atualizadas!</p>
+    </div>
+
+    <!-- TAB: RODAPÉ -->
+    <div class="tab-content" id="tab-rodape">
+      <div class="admin-grid">
+        <div class="admin-field">
+          <label>Nome da marca (nav e rodapé)</label>
+          <input type="text" id="inp-brand" value="Valentech" />
+        </div>
+        <div class="admin-field">
+          <label>Texto de copyright</label>
+          <input type="text" id="inp-copy" value="© 2025 Valentech. Todos os direitos reservados." />
+        </div>
+      </div>
+      <button class="admin-save" onclick="saveRodape()">
+        <i class="ti ti-check" style="font-size:16px"></i>Salvar rodapé
+      </button>
+      <p class="save-feedback" id="fb-rodape">✓ Rodapé atualizado!</p>
+    </div>
+  </div>
+
+  <script>
+    // Toggle admin panel
+    document.getElementById('admin-toggle').addEventListener('click', function () {
+      const p = document.getElementById('admin-panel');
+      p.classList.toggle('open');
+      if (p.classList.contains('open')) {
+        p.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+    document.getElementById('admin-close').addEventListener('click', function () {
+      document.getElementById('admin-panel').classList.remove('open');
+    });
+
+    // Tab navigation
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('.tab-content').forEach(function (c) { c.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Show feedback message
+    function showFeedback(id) {
+      var el = document.getElementById(id);
+      el.classList.add('show');
+      setTimeout(function () { el.classList.remove('show'); }, 2800);
+    }
+
+    // Save: contatos
+    function saveContatos() {
+      document.getElementById('bar-phone').textContent = document.getElementById('inp-phone').value;
+      document.getElementById('bar-whatsapp').textContent = document.getElementById('inp-whatsapp').value;
+      document.getElementById('bar-email').textContent = document.getElementById('inp-email').value;
+      var waLink = document.getElementById('inp-wa-link').value;
+      if (waLink) {
+        document.getElementById('form-submit-btn').onclick = function () { window.open(waLink, '_blank'); };
+      }
+      showFeedback('fb-contatos');
+    }
+
+    // Save: hero
+    function saveHero() {
+      document.getElementById('hero-badge-text').textContent = document.getElementById('inp-badge').value;
+      var titleVal = document.getElementById('inp-title').value;
+      document.getElementById('hero-title').innerHTML = titleVal;
+      document.getElementById('hero-sub').textContent = document.getElementById('inp-sub').value;
+      document.getElementById('btn-cta').textContent = document.getElementById('inp-cta').value;
+      showFeedback('fb-hero');
+    }
+
+    // Save: stats
+    function saveStats() {
+      document.getElementById('stat1').textContent = document.getElementById('inp-s1').value;
+      document.getElementById('stat1-label').textContent = document.getElementById('inp-s1l').value;
+      document.getElementById('stat2').textContent = document.getElementById('inp-s2').value;
+      document.getElementById('stat2-label').textContent = document.getElementById('inp-s2l').value;
+      document.getElementById('stat3').textContent = document.getElementById('inp-s3').value;
+      document.getElementById('stat3-label').textContent = document.getElementById('inp-s3l').value;
+      showFeedback('fb-stats');
+    }
+
+    // Save: rodapé
+    function saveRodape() {
+      var brand = document.getElementById('inp-brand').value;
+      document.getElementById('nav-brand').textContent = brand;
+      document.getElementById('footer-brand').textContent = brand;
+      document.getElementById('footer-copy').textContent = document.getElementById('inp-copy').value;
+      showFeedback('fb-rodape');
+    }
+  </script>
+</body>
+</html>
