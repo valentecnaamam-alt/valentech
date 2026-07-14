@@ -128,16 +128,9 @@
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: rgba(123,47,190,0.07);
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
+    #circuit-canvas {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
     }
     .hero-badge {
@@ -149,6 +142,7 @@
       border-radius: 20px;
       padding: 5px 16px;
       margin-bottom: 28px;
+      position: relative; z-index: 2;
     }
     .hero-badge span {
       color: var(--val-cyan);
@@ -156,23 +150,47 @@
     }
     .hero h1 {
       color: var(--white);
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: clamp(26px, 3.8vw, 40px);
       font-weight: 600;
-      line-height: 1.2;
+      line-height: 1.25;
       margin-bottom: 18px;
-      max-width: 600px;
+      max-width: 620px;
       margin-left: auto;
       margin-right: auto;
+      min-height: 100px;
+      position: relative; z-index: 2;
     }
-    .hero h1 em {
-      color: var(--val-cyan);
-      font-style: normal;
+    .hero h1 em { color: var(--val-cyan); font-style: normal; }
+    .typing-cursor {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--val-cyan); vertical-align: middle;
+      margin-left: 2px;
+      animation: blink-cur 0.8s step-end infinite;
     }
+    @keyframes blink-cur { 0%,100%{opacity:1} 50%{opacity:0} }
     .hero-sub {
       color: var(--text-muted);
       font-size: 15px;
       max-width: 480px;
       margin: 0 auto 36px;
+      position: relative; z-index: 2;
+    }
+    .float-icon {
+      position: absolute; z-index: 1;
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px;
+      animation: fi-float 6s ease-in-out infinite;
+    }
+    .fi1 { background: rgba(123,47,190,0.18); color: #7B2FBE; top: 18%; left: 5%;  animation-delay: 0s; }
+    .fi2 { background: rgba(0,201,212,0.13);  color: #00C9D4; top: 58%; left: 3%;  animation-delay: 1.3s; }
+    .fi3 { background: rgba(92,107,192,0.18); color: #5C6BC0; top: 22%; right: 5%; animation-delay: 0.7s; }
+    .fi4 { background: rgba(123,47,190,0.14); color: #7B2FBE; top: 64%; right: 7%; animation-delay: 2s; }
+    .fi5 { background: rgba(0,201,212,0.11);  color: #00C9D4; top: 7%;  left: 17%; animation-delay: 1.8s; }
+    .fi6 { background: rgba(92,107,192,0.14); color: #5C6BC0; top: 80%; left: 28%; animation-delay: 0.4s; }
+    @keyframes fi-float {
+      0%,100% { transform: translateY(0);    opacity: 0.65; }
+      50%      { transform: translateY(-9px); opacity: 1; }
     }
     .hero-btns {
       display: flex;
@@ -270,20 +288,20 @@
     .s2::before { background: var(--val-cyan); }
     .s3::before { background: var(--val-indigo); }
     .service-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
-      font-size: 24px;
+      margin: 0 auto 16px;
+      font-size: 28px;
     }
     .s1 .service-icon { background: rgba(123,47,190,0.1); color: var(--val-purple); }
     .s2 .service-icon { background: rgba(0,201,212,0.1); color: var(--val-cyan-dark); }
     .s3 .service-icon { background: rgba(92,107,192,0.1); color: var(--val-indigo); }
-    .service-card h3 { font-size: 15px; font-weight: 600; color: #0B1E3D; margin-bottom: 9px; }
-    .service-card p { font-size: 13px; color: #555; line-height: 1.65; }
+    .service-card h3 { font-size: 15px; font-weight: 600; color: #0B1E3D; margin-bottom: 9px; text-align: center; }
+    .service-card p { font-size: 13px; color: #555; line-height: 1.65; text-align: center; }
     .service-list { margin-top: 14px; list-style: none; }
     .service-list li {
       font-size: 12px;
@@ -301,6 +319,29 @@
       background: var(--val-cyan);
       flex-shrink: 0;
     }
+    .service-card { display: flex; flex-direction: column; }
+    .service-list { flex: 1; }
+    .service-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      width: fit-content;
+      align-self: center;
+    }
+    .s1 .service-btn { background: rgba(123,47,190,0.1); color: var(--val-purple); border: 1px solid rgba(123,47,190,0.25); }
+    .s1 .service-btn:hover { background: var(--val-purple); color: #fff; transform: translateY(-1px); }
+    .s2 .service-btn { background: rgba(0,201,212,0.1); color: var(--val-cyan-dark); border: 1px solid rgba(0,201,212,0.3); }
+    .s2 .service-btn:hover { background: var(--val-cyan); color: #fff; transform: translateY(-1px); }
+    .s3 .service-btn { background: rgba(92,107,192,0.1); color: var(--val-indigo); border: 1px solid rgba(92,107,192,0.25); }
+    .s3 .service-btn:hover { background: var(--val-indigo); color: #fff; transform: translateY(-1px); }
 
     /* ── WHY ── */
     .why-grid {
@@ -558,13 +599,22 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge">
+    <canvas id="circuit-canvas"></canvas>
+
+    <div class="float-icon fi1"><i class="ti ti-device-desktop" aria-hidden="true"></i></div>
+    <div class="float-icon fi2"><i class="ti ti-wifi" aria-hidden="true"></i></div>
+    <div class="float-icon fi3"><i class="ti ti-chart-line" aria-hidden="true"></i></div>
+    <div class="float-icon fi4"><i class="ti ti-layout" aria-hidden="true"></i></div>
+    <div class="float-icon fi5"><i class="ti ti-cpu" aria-hidden="true"></i></div>
+    <div class="float-icon fi6"><i class="ti ti-code" aria-hidden="true"></i></div>
+
+    <div class="hero-badge" style="position:relative;z-index:2;">
       <i class="ti ti-shield-check" style="color:var(--val-cyan);font-size:13px"></i>
       <span id="hero-badge-text">Soluções tecnológicas completas para o seu negócio</span>
     </div>
-    <h1 id="hero-title">Tecnologia que <em>impulsiona</em> seus resultados</h1>
+    <h1 id="hero-title"><span id="typed-text"></span><span class="typing-cursor"></span></h1>
     <p class="hero-sub" id="hero-sub">Suporte técnico especializado, gestão de tráfego pago e landing pages de alta conversão — tudo em um só lugar.</p>
-    <div class="hero-btns">
+    <div class="hero-btns" style="position:relative;z-index:2;">
       <button class="btn-primary" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">
         <i class="ti ti-send" style="font-size:15px"></i>
         <span id="btn-cta">Falar com especialista</span>
@@ -574,7 +624,7 @@
         Ver serviços
       </button>
     </div>
-    <div class="hero-stats">
+    <div class="hero-stats" style="position:relative;z-index:2;">
       <div>
         <div class="stat-num">+<span id="stat1">150</span></div>
         <div class="stat-label" id="stat1-label">Clientes atendidos</div>
@@ -598,7 +648,7 @@
     </div>
     <div class="services-grid">
       <div class="service-card s1">
-        <div class="service-icon"><i class="ti ti-device-desktop"></i></div>
+        <div class="service-icon"><i class="ti ti-tool"></i></div>
         <h3>Suporte Técnico em Informática</h3>
         <p>Manutenção preventiva e corretiva, formatação, instalação de sistemas e redes.</p>
         <ul class="service-list">
@@ -607,9 +657,12 @@
           <li>Formatação e backup</li>
           <li>Suporte remoto e presencial</li>
         </ul>
+        <a class="service-btn" href="https://www.linkedin.com/in/naamam-valentim-35332331b/" target="_blank" rel="noopener">
+          <i class="ti ti-user" style="font-size:14px"></i>Saiba mais
+        </a>
       </div>
       <div class="service-card s2">
-        <div class="service-icon"><i class="ti ti-chart-line"></i></div>
+        <div class="service-icon"><i class="ti ti-speakerphone"></i></div>
         <h3>Gestão de Tráfego Pago</h3>
         <p>Campanhas estratégicas no Google Ads e Meta Ads com foco em ROI e resultados mensuráveis.</p>
         <ul class="service-list">
@@ -618,9 +671,12 @@
           <li>Segmentação avançada</li>
           <li>Otimização contínua</li>
         </ul>
+        <a class="service-btn" href="https://drive.google.com/file/d/1qkITCjHu3Uh1htPVkV4i-UuXvTDnyNpN/view?usp=sharing" target="_blank" rel="noopener">
+          <i class="ti ti-folder" style="font-size:14px"></i>Portfólio
+        </a>
       </div>
       <div class="service-card s3">
-        <div class="service-icon"><i class="ti ti-layout"></i></div>
+        <div class="service-icon"><i class="ti ti-browser"></i></div>
         <h3>Landing Pages de Alta Conversão</h3>
         <p>Páginas otimizadas para capturar leads e converter visitantes em clientes reais.</p>
         <ul class="service-list">
@@ -629,6 +685,9 @@
           <li>Integração com ferramentas</li>
           <li>Testes A/B</li>
         </ul>
+        <a class="service-btn" href="https://linktr.ee/lp_criadas" target="_blank" rel="noopener">
+          <i class="ti ti-layout" style="font-size:14px"></i>Landing Pages Desenvolvidas
+        </a>
       </div>
     </div>
   </section>
@@ -669,35 +728,36 @@
       <div class="form-row">
         <div class="form-group">
           <label>Nome</label>
-          <input type="text" placeholder="Seu nome" />
+          <input type="text" id="f-nome" placeholder="Seu nome" />
         </div>
         <div class="form-group">
           <label>WhatsApp</label>
-          <input type="text" placeholder="(00) 00000-0000" />
+          <input type="text" id="f-whatsapp" placeholder="(00) 00000-0000" />
         </div>
       </div>
       <div class="form-group">
         <label>E-mail</label>
-        <input type="email" placeholder="seu@email.com" />
+        <input type="email" id="f-email" placeholder="seu@email.com" />
       </div>
       <div class="form-group">
         <label>Serviço de interesse</label>
-        <select>
+        <select id="f-servico">
           <option value="">Selecione um serviço</option>
           <option>Suporte técnico em informática</option>
           <option>Gestão de tráfego pago</option>
           <option>Landing page</option>
-          <option>Pacote completo</option>
+          <option>Gestão de Tráfego + Landing Page</option>
         </select>
       </div>
       <div class="form-group">
         <label>Mensagem (opcional)</label>
-        <textarea placeholder="Conte um pouco sobre o seu negócio e necessidade..."></textarea>
+        <textarea id="f-mensagem" placeholder="Conte um pouco sobre o seu negócio e necessidade..."></textarea>
       </div>
-      <button class="form-submit" id="form-submit-btn">
+      <button class="form-submit" id="form-submit-btn" onclick="enviarFormulario()">
         <i class="ti ti-send" style="font-size:15px"></i>
-        Enviar solicitação
+        <span id="btn-submit-text">Enviar solicitação</span>
       </button>
+      <p id="form-feedback" style="display:none;text-align:center;margin-top:14px;font-size:13px;font-weight:500;"></p>
       <p class="form-note">
         <i class="ti ti-lock" style="font-size:13px"></i>
         Seus dados estão seguros. Não enviamos spam.
@@ -769,10 +829,6 @@
           <label>Texto do badge (destaque no topo)</label>
           <input type="text" id="inp-badge" value="Soluções tecnológicas completas para o seu negócio" />
         </div>
-        <div class="admin-field">
-          <label>Título principal</label>
-          <input type="text" id="inp-title" value="Tecnologia que impulsiona seus resultados" />
-        </div>
         <div class="admin-field full-col">
           <label>Subtítulo</label>
           <textarea id="inp-sub">Suporte técnico especializado, gestão de tráfego pago e landing pages de alta conversão — tudo em um só lugar.</textarea>
@@ -842,6 +898,238 @@
   </div>
 
   <script>
+    // ── CIRCUIT CANVAS ──
+    (function() {
+      var canvas = document.getElementById('circuit-canvas');
+      var ctx = canvas.getContext('2d');
+      var nodes = [], lines = [], dots = [];
+
+      function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        init();
+      }
+      function init() {
+        nodes = []; lines = []; dots = [];
+        var w = canvas.width, h = canvas.height;
+        var cols = Math.ceil(w / 80), rows = Math.ceil(h / 70);
+        for (var r = 0; r <= rows; r++) {
+          for (var c = 0; c <= cols; c++) {
+            if (Math.random() > 0.45) {
+              nodes.push({ x: c*80+(Math.random()-0.5)*24, y: r*70+(Math.random()-0.5)*18 });
+            }
+          }
+        }
+        nodes.forEach(function(n, i) {
+          nodes.forEach(function(m, j) {
+            if (i >= j) return;
+            var dx = m.x-n.x, dy = m.y-n.y, d = Math.sqrt(dx*dx+dy*dy);
+            if (d < 120 && Math.random() > 0.55) {
+              lines.push({a:n, b:m});
+              if (Math.random() > 0.5) dots.push({x:n.x,y:n.y,tx:m.x,ty:m.y,t:Math.random(),speed:0.003+Math.random()*0.004});
+            }
+          });
+        });
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        lines.forEach(function(l) {
+          ctx.beginPath(); ctx.moveTo(l.a.x,l.a.y); ctx.lineTo(l.b.x,l.b.y);
+          ctx.strokeStyle='rgba(0,201,212,0.08)'; ctx.lineWidth=0.8; ctx.stroke();
+        });
+        nodes.forEach(function(n) {
+          ctx.beginPath(); ctx.arc(n.x,n.y,2.2,0,Math.PI*2);
+          ctx.fillStyle='rgba(0,201,212,0.22)'; ctx.fill();
+        });
+        dots.forEach(function(d) {
+          d.t += d.speed; if (d.t > 1) d.t = 0;
+          var x=d.x+(d.tx-d.x)*d.t, y=d.y+(d.ty-d.y)*d.t;
+          ctx.beginPath(); ctx.arc(x,y,2.5,0,Math.PI*2);
+          ctx.fillStyle='rgba(123,47,190,0.7)'; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); draw();
+      window.addEventListener('resize', resize);
+    })();
+
+    // ── TYPING (2 linhas) ──
+    (function() {
+      var phrases = [
+        ['Tecnologia que <em>impulsiona</em>', 'seus resultados'],
+        ['Suporte técnico', '<em>especializado</em> para você'],
+        ['Tráfego pago <em>eficiente</em>', 'e de qualidade'],
+        ['Landing pages que', '<em>vendem</em> por você']
+      ];
+      var plainPhrases = [
+        ['Tecnologia que impulsiona', 'seus resultados'],
+        ['Suporte técnico', 'especializado para você'],
+        ['Tráfego pago eficiente', 'e de qualidade'],
+        ['Landing pages que', 'vendem por você']
+      ];
+      var pi = 0, lineIdx = 0, ci = 0, deleting = false;
+      var el = document.getElementById('typed-text');
+
+      function getCurrentFull() { return plainPhrases[pi][lineIdx]; }
+      function getCurrentHTML() { return phrases[pi][lineIdx]; }
+      function getAllHTML() {
+        if (lineIdx === 0) return '';
+        return phrases[pi][0] + '<br>';
+      }
+
+      function type() {
+        var full = getCurrentFull();
+        if (!deleting) {
+          ci++;
+          el.innerHTML = getAllHTML() + getCurrentHTML().substring(0, ci);
+          if (ci >= full.length) {
+            if (lineIdx === 0) {
+              lineIdx = 1; ci = 0;
+              setTimeout(type, 300);
+            } else {
+              deleting = true;
+              setTimeout(type, 2400);
+            }
+            return;
+          }
+          setTimeout(type, 65);
+        } else {
+          if (lineIdx === 1 && ci > 0) {
+            ci--;
+            el.innerHTML = getAllHTML() + getCurrentHTML().substring(0, ci);
+            setTimeout(type, 28);
+          } else if (lineIdx === 1 && ci === 0) {
+            lineIdx = 0;
+            var full0 = plainPhrases[pi][0];
+            ci = full0.length;
+            el.innerHTML = phrases[pi][0].substring(0, ci);
+            setTimeout(type, 28);
+          } else {
+            ci--;
+            el.innerHTML = phrases[pi][0].substring(0, ci);
+            if (ci <= 0) {
+              deleting = false; lineIdx = 0; ci = 0;
+              pi = (pi + 1) % phrases.length;
+              setTimeout(type, 400);
+              return;
+            }
+            setTimeout(type, 28);
+          }
+        }
+      }
+      setTimeout(type, 700);
+    })();
+
+    // ── COUNTER ANIMATION ──
+    (function() {
+      var counted = false;
+      function animCount(id, target, dur) {
+        var el = document.getElementById(id), start = 0, step = target/(dur/16);
+        var t = setInterval(function() {
+          start = Math.min(start+step, target);
+          el.textContent = Math.round(start);
+          if (start >= target) clearInterval(t);
+        }, 16);
+      }
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting && !counted) {
+            counted = true;
+            setTimeout(function(){ animCount('stat1',150,1800); }, 300);
+            setTimeout(function(){ animCount('stat2',5,900); }, 500);
+            setTimeout(function(){ animCount('stat3',98,1600); }, 700);
+          }
+        });
+      }, {threshold: 0.3});
+      obs.observe(document.querySelector('.hero-stats'));
+    })();
+
+    // ── FORMULÁRIO → GOOGLE APPS SCRIPT ──
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-58DPDqMVw7eUOuyu9dRYtX_UKaMv4VzKfcNwF6HpAZIZCvI_FPQEvVzoR1r-OqEo/exec';
+
+    function enviarFormulario() {
+      var nome     = document.getElementById('f-nome').value.trim();
+      var whatsapp = document.getElementById('f-whatsapp').value.trim();
+      var email    = document.getElementById('f-email').value.trim();
+      var servico  = document.getElementById('f-servico').value;
+      var mensagem = document.getElementById('f-mensagem').value.trim();
+      var feedback = document.getElementById('form-feedback');
+      var btnText  = document.getElementById('btn-submit-text');
+      var btn      = document.getElementById('form-submit-btn');
+
+      if (!nome || !whatsapp || !email || !servico) {
+        feedback.style.display = 'block';
+        feedback.style.color = '#c0392b';
+        feedback.textContent = 'Por favor, preencha todos os campos obrigatórios.';
+        return;
+      }
+
+      btnText.textContent = 'Enviando...';
+      btn.disabled = true;
+      feedback.style.display = 'none';
+
+      // JSONP — único método que funciona com Google Apps Script sem CORS
+      var callbackName = 'gsCallback_' + Date.now();
+
+      window[callbackName] = function(res) {
+        btnText.textContent = 'Enviar solicitação';
+        btn.disabled = false;
+        // remove o script injetado
+        var old = document.getElementById('jsonp-script');
+        if (old) old.parentNode.removeChild(old);
+        delete window[callbackName];
+
+        if (res && res.status === 'ok') {
+          feedback.style.display = 'block';
+          feedback.style.color = '#1D9E75';
+          feedback.textContent = '✓ Mensagem enviada! Entraremos em contato em breve.';
+          document.getElementById('f-nome').value = '';
+          document.getElementById('f-whatsapp').value = '';
+          document.getElementById('f-email').value = '';
+          document.getElementById('f-servico').value = '';
+          document.getElementById('f-mensagem').value = '';
+        } else {
+          feedback.style.display = 'block';
+          feedback.style.color = '#c0392b';
+          feedback.textContent = 'Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp.';
+        }
+      };
+
+      // timeout de segurança (10s)
+      var timeout = setTimeout(function() {
+        if (window[callbackName]) {
+          window[callbackName] = function(){};
+          btnText.textContent = 'Enviar solicitação';
+          btn.disabled = false;
+          feedback.style.display = 'block';
+          feedback.style.color = '#c0392b';
+          feedback.textContent = 'Tempo esgotado. Tente novamente.';
+        }
+      }, 10000);
+
+      var url = SCRIPT_URL
+        + '?callback=' + callbackName
+        + '&nome='     + encodeURIComponent(nome)
+        + '&whatsapp=' + encodeURIComponent(whatsapp)
+        + '&email='    + encodeURIComponent(email)
+        + '&servico='  + encodeURIComponent(servico)
+        + '&mensagem=' + encodeURIComponent(mensagem);
+
+      var script = document.createElement('script');
+      script.id  = 'jsonp-script';
+      script.src = url;
+      script.onerror = function() {
+        clearTimeout(timeout);
+        window[callbackName] = function(){};
+        btnText.textContent = 'Enviar solicitação';
+        btn.disabled = false;
+        feedback.style.display = 'block';
+        feedback.style.color = '#c0392b';
+        feedback.textContent = 'Erro de conexão. Tente novamente.';
+      };
+      document.body.appendChild(script);
+    }
+
     // Toggle admin panel
     document.getElementById('admin-toggle').addEventListener('click', function () {
       const p = document.getElementById('admin-panel');
@@ -886,8 +1174,6 @@
     // Save: hero
     function saveHero() {
       document.getElementById('hero-badge-text').textContent = document.getElementById('inp-badge').value;
-      var titleVal = document.getElementById('inp-title').value;
-      document.getElementById('hero-title').innerHTML = titleVal;
       document.getElementById('hero-sub').textContent = document.getElementById('inp-sub').value;
       document.getElementById('btn-cta').textContent = document.getElementById('inp-cta').value;
       showFeedback('fb-hero');
